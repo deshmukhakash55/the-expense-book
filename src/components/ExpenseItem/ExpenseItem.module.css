@@ -1,0 +1,44 @@
+.ExpenseItem {
+	width: 60%;
+	margin: 4% auto;
+}
+
+@media (max-width: 590px) {
+	.ExpenseItem {
+		width: 100%;
+	}
+}
+
+.CardActions {
+	display: flex;
+	justify-content: space-around;
+	padding: 0 !important;
+	align-items: stretch !important;
+}
+
+.CardActionsButton {
+	width: 50%;
+	padding: 5%;
+	margin: 0 !important;
+}
+
+.ExpenseTitle {
+	text-align: center;
+}
+
+.ExpenseTime {
+	text-align: center;
+	font-size: 10px;
+}
+
+.ExpenseAmount {
+	text-align: center;
+	margin-top: 5%;
+}
+
+.Spinner {
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

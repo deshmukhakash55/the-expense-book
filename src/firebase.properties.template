@@ -1,0 +1,6 @@
+export const apiKey = <API_KEY>;
+export const authDomain = <AUTH_DOMAIN>;
+export const projectId = <PROJECT_ID>;
+export const storageBucket = <STORAGE_BUCKET>;
+export const messagingSenderId = <MESSAGING_SENDER_ID>;
+export const appId = <APP_ID>;

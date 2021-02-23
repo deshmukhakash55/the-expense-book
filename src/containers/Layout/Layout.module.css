@@ -1,0 +1,19 @@
+.Layout {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow-y: scroll;
+	height: 90vh;
+}
+
+.NoExpensesAddedMessage {
+	padding: 5%;
+	text-align: center;
+}
+
+.PageLoading {
+	height: 80vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

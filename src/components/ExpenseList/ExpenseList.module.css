@@ -1,0 +1,21 @@
+.ExpenseList {
+	position: absolute;
+	top: 0;
+	width: 75%;
+	height: 100%;
+}
+
+.PageLoading {
+	height: 80vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.EmptySpace {
+	height: 1%;
+}
+
+.NoExpensesMessage {
+	text-align: center;
+}

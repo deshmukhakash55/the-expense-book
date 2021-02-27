@@ -1,0 +1,105 @@
+.Navbar {
+	height: 10vh;
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+	align-items: center;
+	background-color: #4d4d4d;
+	position: fixed;
+	width: 100%;
+	z-index: 1;
+	top: 0;
+}
+
+.Links {
+	display: flex;
+	justify-content: space-around;
+	height: 100%;
+}
+
+.LoggedInLinks {
+	width: 40%;
+}
+
+.LoggedOutLinks {
+	width: 20%;
+}
+
+@media (min-width: 720px) and (max-width: 930px) {
+	.LoggedInLinks {
+		width: 50%;
+	}
+	.LoggedOutLinks {
+		width: 30%;
+	}
+}
+
+@media (max-width: 720px) {
+	.LoggedInLinks {
+		width: 60%;
+	}
+	.LoggedOutLinks {
+		width: 40%;
+	}
+}
+
+.NavLink {
+	text-decoration: none;
+	color: whitesmoke;
+	height: 100%;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.NavLinkActive {
+	border-bottom: 3px solid #a7a6a6;
+}
+
+.NavLinkLoading {
+	margin: 5%;
+}
+
+.LogoAndHamburger {
+	margin: auto 3%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	cursor: pointer;
+	height: 100%;
+	width: 18%;
+}
+
+@media (max-width: 720px) {
+	.LogoAndHamburger {
+		width: 35%;
+	}
+}
+
+.Hamburger {
+	margin-right: 5%;
+}
+
+@media (max-width: 520px) {
+	.LogoAndHamburger {
+		width: 100%;
+		justify-content: flex-start;
+	}
+}
+
+.Logo {
+	height: 70%;
+}
+
+@media (min-width: 590px) {
+	.Hamburger {
+		display: none;
+	}
+}
+
+@media (max-width: 590px) {
+	.Links {
+		display: none;
+	}
+}

@@ -1,0 +1,90 @@
+.RegisterTitle {
+	text-align: center;
+}
+
+.formControl {
+	width: 100%;
+	margin: 8% auto;
+}
+
+.FormAction {
+	display: flex;
+	justify-content: center;
+}
+
+.RegisterInputFormPaper {
+	width: 40%;
+	margin: 5% auto;
+	padding: 2%;
+	height: fit-content;
+}
+
+@media (max-width: 720px) {
+	.RegisterInputFormPaper {
+		width: 80%;
+	}
+}
+
+.FormErrors {
+	text-align: center;
+	color: #d4574e;
+}
+
+.PageLoading {
+	height: 80vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.AlreadyMember {
+	color: #375b8a;
+}
+
+.FormOptions {
+	display: flex;
+	justify-content: center;
+	cursor: pointer;
+	margin-bottom: 5%;
+}
+
+.Highlight {
+	animation: shake 0.5s;
+	animation-iteration-count: 1;
+}
+
+@keyframes shake {
+	0% {
+		transform: translate(1px, 1px) rotate(0deg);
+	}
+	10% {
+		transform: translate(-1px, -2px) rotate(-1deg);
+	}
+	20% {
+		transform: translate(-3px, 0px) rotate(1deg);
+	}
+	30% {
+		transform: translate(3px, 2px) rotate(0deg);
+	}
+	40% {
+		transform: translate(1px, -1px) rotate(1deg);
+	}
+	50% {
+		transform: translate(-1px, 2px) rotate(-1deg);
+	}
+	60% {
+		transform: translate(-3px, 1px) rotate(0deg);
+	}
+	70% {
+		transform: translate(3px, 1px) rotate(-1deg);
+	}
+	80% {
+		transform: translate(-1px, -1px) rotate(1deg);
+	}
+	90% {
+		transform: translate(1px, 2px) rotate(0deg);
+	}
+	100% {
+		transform: translate(1px, -2px) rotate(-1deg);
+	}
+}

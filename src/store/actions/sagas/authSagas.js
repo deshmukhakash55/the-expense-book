@@ -22,7 +22,7 @@ function* register(action) {
 
 function* login(action) {
 	try {
-		const userCredentials = yield auth.signInWithEmailAndPassword(
+		yield auth.signInWithEmailAndPassword(
 			action.payload.email,
 			action.payload.password
 		);
@@ -30,8 +30,6 @@ function* login(action) {
 		if (!isEmailVerified) {
 			yield auth.signOut();
 			yield put(actions.emailNotVerified());
-		} else {
-			yield put(actions.loginSuccess(userCredentials.user.email));
 		}
 	} catch (error) {
 		if (error.code === 'auth/user-not-found') {

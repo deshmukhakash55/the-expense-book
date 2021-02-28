@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { CssCircularProgress } from '../../utility/widgets';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import Navbar from '../Navbar/Navbar';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
+
+import * as actions from '../../store/actions/expense';
 
 import classes from './Layout.module.css';
 
@@ -20,7 +22,17 @@ const ExpenseList = React.lazy(() =>
 
 const NotFound = React.lazy(() => import('../../components/NotFound/NotFound'));
 
-const Layout = () => {
+const Layout = (props) => {
+	const { loadExpenses, loggedInEmail } = props;
+
+	useEffect(() => {
+		if (loggedInEmail) {
+			loadExpenses(loggedInEmail);
+		}
+
+		// eslint-disable-next-line
+	}, [loggedInEmail]);
+
 	return (
 		<React.Fragment>
 			<Navbar></Navbar>
@@ -46,14 +58,20 @@ const Layout = () => {
 	);
 };
 
+const mapDispatchToProps = (dispatch) => {
+	return {
+		loadExpenses: (email) => dispatch(actions.loadExpenses(email))
+	};
+};
+
 const matStateToProps = (state) => {
 	return {
-		isLoggedIn: !!state.auth.loggedInUsername
+		loggedInEmail: state.auth.loggedInEmail
 	};
 };
 
 Layout.propTypes = {
-	isLoggedIn: PropTypes.bool
+	loggedInEmail: PropTypes.string
 };
 
-export default connect(matStateToProps)(Layout);
+export default connect(matStateToProps, mapDispatchToProps)(Layout);

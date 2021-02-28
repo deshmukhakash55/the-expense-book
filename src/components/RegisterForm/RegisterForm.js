@@ -35,8 +35,12 @@ const RegisterForm = (props) => {
 	);
 
 	useEffect(() => {
-		props.clearLoginFormSubmittingError();
-	});
+		return () => {
+			props.clearRegisterFormSubmittingError();
+		};
+
+		// eslint-disable-next-line
+	}, []);
 
 	const { shouldShowVerificationEmailSentModal, history } = props;
 
@@ -289,8 +293,6 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		register: (email, password) =>
 			dispatch(actions.register(email, password)),
-		clearLoginFormSubmittingError: () =>
-			dispatch(actions.clearLoginFormSubmittingError()),
 		clearRegisterFormSubmittingError: () =>
 			dispatch(actions.clearRegisterFormSubmittingError())
 	};
@@ -313,7 +315,6 @@ RegisterForm.propTypes = {
 	showEmailAlreadyExistsError: PropTypes.bool,
 	register: PropTypes.func,
 	verficationEmailMessageClose: PropTypes.func,
-	clearLoginFormSubmittingError: PropTypes.func,
 	clearRegisterFormSubmittingError: PropTypes.func
 };
 

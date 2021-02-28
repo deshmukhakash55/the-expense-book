@@ -12,21 +12,14 @@ import classes from './ExpenseList.module.css';
 const ExpenseList = (props) => {
 	useEffect(() => {
 		props.resetAddExpenseSuccess();
-	});
+		// eslint-disable-next-line
+	}, []);
 
 	useEffect(() => {
 		if (!props.loggedInEmail && props.checkingLoginDone) {
 			props.history.push('/login');
 		}
 	}, [props.loggedInEmail, props.history, props.checkingLoginDone]);
-
-	const { loadExpenses, loggedInEmail } = props;
-
-	useEffect(() => {
-		if (loggedInEmail) {
-			loadExpenses(loggedInEmail);
-		}
-	}, [loadExpenses, loggedInEmail]);
 
 	if (!props.checkingLoginDone || props.loadingExpenses) {
 		return (

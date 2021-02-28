@@ -34,8 +34,12 @@ const LoginForm = (props) => {
 	);
 
 	useEffect(() => {
-		props.clearRegisterFormSubmittingError();
-	});
+		return () => {
+			props.clearLoginFormSubmittingError();
+		};
+
+		// eslint-disable-next-line
+	}, []);
 
 	useEffect(() => {
 		if (props.isLoggedIn && props.checkingLoginDone) {
@@ -371,8 +375,6 @@ const mapDispatchToProps = (dispatch) => {
 		sendForgotPasswordResetLink: (email) =>
 			dispatch(actions.sendForgotPasswordResetLink(email)),
 		loginWithGoogle: () => dispatch(actions.loginWithGoogle()),
-		clearRegisterFormSubmittingError: () =>
-			dispatch(actions.clearRegisterFormSubmittingError()),
 		clearLoginFormSubmittingError: () =>
 			dispatch(actions.clearLoginFormSubmittingError()),
 		verficationEmailMessageClose: () =>
@@ -408,7 +410,6 @@ LoginForm.propTypes = {
 	closeEmailNotVerifiedModal: PropTypes.func,
 	sendForgotPasswordResetLink: PropTypes.func,
 	loginWithGoogle: PropTypes.func,
-	clearRegisterFormSubmittingError: PropTypes.func,
 	clearLoginFormSubmittingError: PropTypes.func
 };
 

@@ -13,10 +13,9 @@ export const addingExpense = () => {
 	};
 };
 
-export const addExpenseSuccess = (expense) => {
+export const addExpenseSuccess = () => {
 	return {
-		type: actionTypes.ADD_EXPENSE_SUCCESS,
-		payload: { expense }
+		type: actionTypes.ADD_EXPENSE_SUCCESS
 	};
 };
 
@@ -47,10 +46,9 @@ export const removingExpense = (expenseId) => {
 	};
 };
 
-export const removeExpenseSuccess = (expenseId) => {
+export const removeExpenseSuccess = () => {
 	return {
-		type: actionTypes.REMOVE_EXPENSE_SUCCESS,
-		payload: { expenseId }
+		type: actionTypes.REMOVE_EXPENSE_SUCCESS
 	};
 };
 
@@ -75,10 +73,9 @@ export const togglingBookmarkExpense = (expenseId) => {
 	};
 };
 
-export const toggleBookmarkExpenseSuccess = (expenseId) => {
+export const toggleBookmarkExpenseSuccess = () => {
 	return {
-		type: actionTypes.TOGGLE_BOOKMARK_EXPENSE_SUCCESS,
-		payload: { expenseId }
+		type: actionTypes.TOGGLE_BOOKMARK_EXPENSE_SUCCESS
 	};
 };
 

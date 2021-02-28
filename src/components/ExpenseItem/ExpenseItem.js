@@ -71,7 +71,7 @@ ExpenseItem.propTypes = {
 	toggleBookmarkExpense: PropTypes.func,
 	togglingBookmarkExpense: PropTypes.bool,
 	delete: PropTypes.func,
-	removingExpense: PropTypes.bool
+	removingExpense: PropTypes.any
 };
 
 export default React.memo(ExpenseItem);

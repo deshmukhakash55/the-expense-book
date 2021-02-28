@@ -1,33 +1,34 @@
-import { put, takeEvery, all } from 'redux-saga/effects';
+import { channel } from 'redux-saga';
+import { put, takeEvery, take } from 'redux-saga/effects';
 
 import { firestore, firestoreSource } from '../../../firebase.config';
 
 import * as actionTypes from '../actionTypes/expense';
 import * as actions from '../expense';
 
+const loadExpensesSuccessChannel = channel();
+
 function* loadExpenses(action) {
 	try {
 		yield put(actions.loadingExpenses());
-		const expensesRefs = yield firestore
+		yield firestore
 			.collection('expenses')
 			.where('email', '==', action.payload.email)
 			.orderBy('time', 'desc')
-			.get();
-		const ids = yield expensesRefs.docs.map((doc) => doc.id);
-		const expenseDocumentsSnapshots = yield all(
-			ids.map((id) => {
-				return firestore.collection('expenses').doc(id).get();
-			})
-		);
-		const expenses = yield expenseDocumentsSnapshots.map(
-			(expenseDocumentsSnapshot) => {
-				const id = expenseDocumentsSnapshot.id;
-				const rawData = expenseDocumentsSnapshot.data();
-				const time = new Date(rawData.time.seconds * 1000);
-				return { id, ...rawData, time };
-			}
-		);
-		yield put(actions.loadExpensesSuccess(expenses));
+			.onSnapshot((querySnapshot) => {
+				var expenses = [];
+				querySnapshot.forEach((doc) => {
+					const rawData = doc.data();
+					const time = new Date(
+						rawData.time.seconds * 1000 +
+							rawData.time.nanoseconds / Math.pow(10, 6)
+					);
+					expenses.push({ id: doc.id, ...rawData, time });
+				});
+				loadExpensesSuccessChannel.put(
+					actions.loadExpensesSuccess(expenses)
+				);
+			});
 	} catch (error) {
 		yield put(actions.loadExpensesFailure(error));
 	}
@@ -49,9 +50,7 @@ function* toggleBookmarkExpense(action) {
 				},
 				{ merge: true }
 			);
-		yield put(
-			actions.toggleBookmarkExpenseSuccess(action.payload.expenseId)
-		);
+		yield put(actions.toggleBookmarkExpenseSuccess());
 	} catch (error) {
 		yield put(actions.toggleBookmarkExpenseFailure(error));
 	}
@@ -66,20 +65,8 @@ function* addExpense(action) {
 			time: firestoreSource.Timestamp.fromDate(new Date()),
 			isBookmarked: false
 		};
-		const expenseRef = yield firestore
-			.collection('expenses')
-			.add(expenseData);
-		const time = new Date(
-			expenseData.time.seconds * 1000 +
-				expenseData.time.nanoseconds / Math.pow(10, 6)
-		);
-		yield put(
-			actions.addExpenseSuccess({
-				id: expenseRef.id,
-				...expenseData,
-				time
-			})
-		);
+		yield firestore.collection('expenses').add(expenseData);
+		yield put(actions.addExpenseSuccess());
 	} catch (error) {
 		yield put(actions.addExpenseFailure(error));
 	}
@@ -92,7 +79,7 @@ function* removeExpense(action) {
 			.collection('expenses')
 			.doc(action.payload.expenseId)
 			.delete();
-		yield put(actions.removeExpenseSuccess(action.payload.expenseId));
+		yield put(actions.removeExpenseSuccess());
 	} catch (error) {
 		yield put(actions.removeExpenseFailure(error));
 	}
@@ -103,6 +90,10 @@ function* expenseSaga() {
 	yield takeEvery(actionTypes.TOGGLE_BOOKMARK_EXPENSE, toggleBookmarkExpense);
 	yield takeEvery(actionTypes.ADD_EXPENSE, addExpense);
 	yield takeEvery(actionTypes.REMOVE_EXPENSE, removeExpense);
+	while (true) {
+		const action = yield take(loadExpensesSuccessChannel);
+		yield put(action);
+	}
 }
 
 export default expenseSaga;

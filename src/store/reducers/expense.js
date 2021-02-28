@@ -7,7 +7,7 @@ const initialState = {
 	addingExpense: false,
 	addExpenseFailure: false,
 	addExpenseSuccess: false,
-	removingExpense: false,
+	removingExpense: null,
 	removeExpenseFailure: false,
 	removeExpenseSuccess: false,
 	togglingBookmarkExpense: null,
@@ -30,8 +30,7 @@ export const expenseReducer = (state = initialState, action) => {
 				addingExpense: false,
 				addExpenseFailure: false,
 				addExpenseSuccess: true,
-				networkError: false,
-				expenses: [{ ...action.payload.expense }, ...state.expenses]
+				networkError: false
 			};
 		case actionTypes.RESET_ADD_EXPENSE_SUCCESS:
 			return {
@@ -56,13 +55,9 @@ export const expenseReducer = (state = initialState, action) => {
 				removeExpenseFailure: false
 			};
 		case actionTypes.REMOVE_EXPENSE_SUCCESS:
-			const expenses = [...state.expenses].filter(
-				(expense) => expense.id !== action.payload.expenseId
-			);
 			return {
 				...state,
-				expenses,
-				removingExpense: false,
+				removingExpense: null,
 				removeExpenseSuccess: true,
 				removeExpenseFailure: false,
 				networkError: false
@@ -70,7 +65,7 @@ export const expenseReducer = (state = initialState, action) => {
 		case actionTypes.REMOVE_EXPENSE_FAILURE:
 			return {
 				...state,
-				removingExpense: false,
+				removingExpense: null,
 				removeExpenseSuccess: false,
 				removeExpenseFailure: true
 			};

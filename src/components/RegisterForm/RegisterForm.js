@@ -15,7 +15,7 @@ import classes from './RegisterForm.module.css';
 
 const RegisterForm = (props) => {
 	if (props.isLoggedIn) {
-		props.history.push('/list');
+		props.history.push('/add');
 	}
 
 	const [email, setEmail] = useState('');
@@ -58,7 +58,7 @@ const RegisterForm = (props) => {
 
 	useEffect(() => {
 		if (props.isLoggedIn && props.checkingLoginDone) {
-			props.history.push('/list');
+			props.history.push('/add');
 		}
 	}, [props.isLoggedIn, props.history, props.checkingLoginDone]);
 

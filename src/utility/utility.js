@@ -43,3 +43,33 @@ export const humanizeTime = (date) => {
 		return date.toLocaleDateString('en-US', options);
 	}
 };
+
+export const processExpenses = (filters, expenses) => {
+	return expenses
+		.filter((expense) => {
+			if (!filters.title) {
+				return true;
+			}
+			return expense.title
+				.toLowerCase()
+				.includes(filters.title.toLowerCase());
+		})
+		.filter((expense) => {
+			if (!filters.startDate) {
+				return true;
+			}
+			return expense.time >= new Date(filters.startDate);
+		})
+		.filter((expense) => {
+			if (!filters.endDate) {
+				return true;
+			}
+			return expense.time <= new Date(filters.endDate);
+		})
+		.filter((expense) => {
+			if (!filters.bookmark) {
+				return true;
+			}
+			return expense.isBookmarked === filters.bookmark;
+		});
+};

@@ -1,0 +1,23 @@
+.FilterInputs {
+	display: flex;
+	flex-direction: column;
+	gap: 3vh;
+	width: 100%;
+}
+
+@media (max-width: 590px) {
+	.DateTimeFilter {
+		flex-direction: column;
+	}
+}
+
+.DateTimeFilter {
+	display: flex;
+	gap: 5vw;
+}
+
+.FilterBlock {
+	display: flex;
+	align-items: center;
+	gap: 2vw;
+}

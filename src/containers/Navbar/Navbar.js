@@ -58,18 +58,18 @@ const Navbar = (props) => {
 			<NavLink
 				activeClassName={classes.NavLinkActive}
 				className={classes.NavLink}
-				to="/list"
-			>
-				<CssCollectionsBookmarkIcon />
-				All Expenses
-			</NavLink>
-			<NavLink
-				activeClassName={classes.NavLinkActive}
-				className={classes.NavLink}
 				to="/add"
 			>
 				<CssPostAddIcon />
 				Add Expense
+			</NavLink>
+			<NavLink
+				activeClassName={classes.NavLinkActive}
+				className={classes.NavLink}
+				to="/list"
+			>
+				<CssCollectionsBookmarkIcon />
+				All Expenses
 			</NavLink>
 			<div
 				onClick={(event) => props.logout()}
@@ -125,22 +125,22 @@ const Navbar = (props) => {
 			<ListItem
 				button
 				onClick={() => {
-					props.history.push('/list');
-					setDrawerOpen(false);
-				}}
-			>
-				<DrawerCssCollectionsBookmarkIcon />
-				<ListItemText primary={'See all Expenses'} />
-			</ListItem>
-			<ListItem
-				button
-				onClick={() => {
 					props.history.push('/add');
 					setDrawerOpen(false);
 				}}
 			>
 				<DrawerCssPostAddIcon />
 				<ListItemText primary={'Add expense'} />
+			</ListItem>
+			<ListItem
+				button
+				onClick={() => {
+					props.history.push('/list');
+					setDrawerOpen(false);
+				}}
+			>
+				<DrawerCssCollectionsBookmarkIcon />
+				<ListItemText primary={'All Expenses'} />
 			</ListItem>
 			<ListItem
 				button

@@ -1,19 +1,34 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { CssCircularProgress } from '../../utility/widgets';
+import ExpenseFilter from '../ExpenseFilter/ExpenseFilter';
 import ExpenseItem from '../ExpenseItem/ExpenseItem';
+import { processExpenses } from '../../utility/utility';
 
 import * as actions from '../../store/actions/expense';
 
 import classes from './ExpenseList.module.css';
 
 const ExpenseList = (props) => {
+	const [filters, setFilters] = useState({
+		title: '',
+		startDate: '',
+		endDate: '',
+		bookmark: null
+	});
+	const [processedExpenses, setProcessedExpenses] = useState(props.expenses);
+
 	useEffect(() => {
 		props.resetAddExpenseSuccess();
 		// eslint-disable-next-line
 	}, []);
+
+	useEffect(() => {
+		const processedExpenses = processExpenses(filters, props.expenses);
+		setProcessedExpenses(processedExpenses);
+	}, [filters, props.expenses]);
 
 	useEffect(() => {
 		if (!props.loggedInEmail && props.checkingLoginDone) {
@@ -37,7 +52,7 @@ const ExpenseList = (props) => {
 		);
 	}
 
-	const expenses = props.expenses.map((expense) => (
+	const expenses = processedExpenses.map((expense) => (
 		<ExpenseItem
 			key={expense.id}
 			expense={expense}
@@ -53,9 +68,14 @@ const ExpenseList = (props) => {
 	));
 
 	return (
-		<div className={classes.ExpenseList}>
-			{expenses}
-			<div className={classes.EmptySpace}></div>
+		<div className={classes.ExpenseFilterAndList}>
+			<div className={classes.ExpenseFilter}>
+				<ExpenseFilter filters={filters} setFilters={setFilters} />
+			</div>
+			<div className={classes.ExpenseList}>
+				{expenses}
+				<div className={classes.EmptySpace}></div>
+			</div>
 		</div>
 	);
 };

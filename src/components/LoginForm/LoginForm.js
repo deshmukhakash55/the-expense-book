@@ -43,7 +43,7 @@ const LoginForm = (props) => {
 
 	useEffect(() => {
 		if (props.isLoggedIn && props.checkingLoginDone) {
-			props.history.push('/list');
+			props.history.push('/add');
 		}
 	}, [props.isLoggedIn, props.history, props.checkingLoginDone]);
 

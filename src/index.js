@@ -17,6 +17,7 @@ import { watchAuthStatus } from './firebase.config';
 import { watchNetworkStatus } from './network.config';
 
 import './index.css';
+const prod = true;
 
 const reducers = combineReducers({
 	auth: authReducer,
@@ -26,8 +27,12 @@ const reducers = combineReducers({
 
 const sagaMiddleware = createSagaMiddleware();
 
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const composeEnhancers = compose;
+let composeEnhancers;
+if (prod) {
+	composeEnhancers = compose;
+} else {
+	composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+}
 
 const store = createStore(
 	reducers,
@@ -39,6 +44,11 @@ sagaMiddleware.run(expenseSaga);
 
 watchNetworkStatus(store);
 watchAuthStatus(store);
+
+if (prod) {
+	console.error = () => {};
+	console.warn = () => {};
+}
 
 ReactDOM.render(
 	<Provider store={store}>

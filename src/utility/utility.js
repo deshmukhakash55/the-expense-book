@@ -8,6 +8,11 @@ export const isPasswordValid = (password) => {
 	return re.test(String(password));
 };
 
+export const isSingleDigitNumber = (text) => {
+	const re = /[0-9]/;
+	return re.test(String(text));
+};
+
 export const humanizeTime = (date) => {
 	let options = {
 		weekday: 'long',
@@ -65,6 +70,18 @@ export const processExpenses = (filters, expenses) => {
 				return true;
 			}
 			return expense.time <= new Date(filters.endDate);
+		})
+		.filter((expense) => {
+			if (filters.minAmount === '') {
+				return true;
+			}
+			return expense.amount >= +filters.minAmount;
+		})
+		.filter((expense) => {
+			if (filters.maxAmount === '') {
+				return true;
+			}
+			return expense.amount <= +filters.maxAmount;
 		})
 		.filter((expense) => {
 			if (!filters.bookmark) {

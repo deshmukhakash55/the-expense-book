@@ -11,7 +11,8 @@
 	}
 }
 
-.DateTimeFilter {
+.DateTimeFilter,
+.AmountFilter {
 	display: flex;
 	gap: 5vw;
 }

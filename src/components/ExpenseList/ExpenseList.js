@@ -16,6 +16,8 @@ const ExpenseList = (props) => {
 		title: '',
 		startDate: '',
 		endDate: '',
+		minAmount: '',
+		maxAmount: '',
 		bookmark: null
 	});
 	const [processedExpenses, setProcessedExpenses] = useState(props.expenses);
